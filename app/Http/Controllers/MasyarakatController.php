@@ -86,6 +86,7 @@ class MasyarakatController extends Controller
             'method' =>'PUT' ,
             'route'=>route('masyarakat-update', $id) ,
             'article'=> Masyarakat::where('id', $id)->first(),
+            //haloo
 
         ];
         return view('admin.masyarakat.edit', $data);
