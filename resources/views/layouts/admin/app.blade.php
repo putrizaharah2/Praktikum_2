@@ -61,8 +61,8 @@
       demo.initChartsPages();
     });
   </script>
-
-
+<script text="text/javascript" src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+@yield('script')
 </body>
 
 </html>

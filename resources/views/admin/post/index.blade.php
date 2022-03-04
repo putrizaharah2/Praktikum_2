@@ -28,21 +28,26 @@
                                 <th scope="col">Action</th>
                             </thead>
                             <tbody>
-                                <tr>
-                                  <th scope="row">1</th>
-                                    <td> Dakota Rice </td>
-                                    <td> Niger </td>
-                                    <td> Oud-Turnhout </td>
-                                    <td > $36,738 </td>
+                                @php $i=0 @endphp
+                                @foreach ( $articles as $article )
+                                @php $i++ @endphp
+                                    <td> {{ $i }} </td>
+                                    <td> {{ $article->title }} </td>
+                                    <td> {{ $article->description }} </td>
+                                    <td> {{ $article->slug }} </td>
+                                    <td> {{ $article->body }}</td>
                                     <td>
-                                    <form method="" action="">
-                            <a button type="button" class="btn btn-primary" href="#">Read</button></a>
-                                <a button type="button" class="btn btn-warning" href="/edit-post">Edit</button></a>
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                                    </td>
-                                </tr>
+                                    @endforeach
                             </tbody>
+                            <tr>
+                                <td>
+                                <form method="" action="">
+                                    <a button type="button" class="btn btn-primary" href="#">Read</button></a>
+                                    <a button type="button" class="btn btn-warning" href="/edit-post">Edit</button></a>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>

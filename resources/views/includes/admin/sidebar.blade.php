@@ -30,9 +30,16 @@
           </li>
 
           <li>
-            <a href="/list-post">
+            <a href="/list-article">
               <i class="nc-icon nc-tile-56"></i>
               <p>Table List</p>
+            </a>
+          </li>
+
+          <li>
+            <a href="/list-masyarakat">
+              <i class="nc-icon nc-tile-56"></i>
+              <p>Data Masyarakat</p>
             </a>
           </li>
 
