@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class MasyarakatController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,13 +13,13 @@ class MasyarakatController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+     {
         $data=[
-            'title'=>'Daftar Pengguna',
-            'masyarakats'=> User::where('role','User')->get(),
-            // 'route'=>route('masyarakat.create'),
+            'title'=>'Daftar Petugas',
+            'users'=> User::where('role','Admin')->get(),
+            // 'route'=>route('user.create'),
         ];
-        return view('admin.masyarakat.index', $data);
+        return view('admin.user.index', $data);
 
     }
 
@@ -30,9 +30,14 @@ class MasyarakatController extends Controller
      */
     public function create()
     {
-        //
-    }
+        $data=[
+            'form_title'=>'Tambah Petugas Baru',
+            'method'=> 'POST',
+            // 'route'=>route('user-store')
 
+        ];
+        return view('admin.user.create', $data);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -42,8 +47,21 @@ class MasyarakatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nik'=> 'required|unique:users',
+            'name'=> 'required',
+            'email'=> 'required|email|unique:users',
+            'password'=> 'required|min:6',
+        ]);
 
+        $user = new User();
+        $user ->nik= $request ->nik;
+        $user ->name= $request ->name;
+        $user ->email= $request ->email;
+        $user ->password= bcrypt($request->password);
+        $user ->role= 'Admin';
+        $user ->save();
+        return redirect() -> route('petugas-index') ->with('message', 'Petugas berhasil dibuat');
     }
 
     /**
@@ -66,12 +84,13 @@ class MasyarakatController extends Controller
     public function edit($id)
     {
         $data=[
-            'form_title'=>'Ubah Data Pengguna',
+            'form_title'=>'Ubah Data Petugas',
             'method' =>'PUT' ,
-            'route'=>route('user-update', $id) ,
+            'route'=>route('petugas-update', $id) ,
             'user'=> user::where('id', $id)->first(),
         ];
-        return view('admin.masyarakat.edit', $data);
+        return view('admin.user.edit', $data);
+
     }
 
     /**
@@ -110,7 +129,7 @@ class MasyarakatController extends Controller
         }
 
         $pro->save();
-        return redirect()->route('user-index')->with('success','Biodata Pengguna berhasil diperbaharui');
+        return redirect()->route('pegawai-index')->with('success','Biodata Petugas berhasil diperbaharui');
     }
 
     /**
@@ -123,6 +142,6 @@ class MasyarakatController extends Controller
     {
         $destroy = User::find($id);
         $destroy->delete();
-        return redirect('/list-pengguna');
+        return redirect('/list-user');
     }
 }

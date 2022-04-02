@@ -1,5 +1,5 @@
 @extends('layouts.admin.app')
-@section('title','Daftar Pengguna')
+@section('title','Daftar Petugas')
 @section('content')
 
 <div class="content">
@@ -9,42 +9,38 @@
                 <div class="card-header">
                     <div class="row ml-3">
                     <h4 class="card-title">{{ $title }}</h4>
-                    {{-- <div class="d-flex ml-3">
-                        <a href="/add-masyarakat" class="btn btn-primary">Pengguna Baru</a>
-                    </div> --}}
+                    <div class="d-flex ml-3">
+                        <a href="/add-user" class="btn btn-primary">Tambah Petugas</a>
+                    </div>
                     </div>
                 </div>
                 </div>
                 </div>
                 <div class="card-body">
                   <div>
-                        <table id="table_id" class="table" style="width: 100%">
+                    <table id="table_id" class="table" style="width: 100%">
                             <thead>
                                 <tr>
-                                <th>#</th>
-                                <th> NIK </th>
-                                <th> Nama </th>
-                                <th> Tanggal Lahir </th>
-                                <th> Alamat </th>
-                                <th> E-Mail</th>
-                                <th> Telpon</th>
-                                <th> Aksi</th>
+                                    <th> #</th>
+                                    <th> NIP </th>
+                                    <th> Nama Lengkap </th>
+                                    <th> Email</th>
+                                    <th> Tanggal Registrasi</th>
+                                    <th> </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php $i=0 @endphp
-                                @foreach ( $masyarakats as $masyarakat )
+                                @foreach ( $users as $user )
                                 @php $i++ @endphp
                                 <tr>
                                     <td> {{ $i }} </td>
-                                    <td> {{ $masyarakat->nik }} </td>
-                                    <td> {{ $masyarakat->name }} </td>
-                                    <td> {{ (is_null($masyarakat->dob) ? '' : \Carbon\Carbon::parse($masyarakat->dob)->format('d/m/Y') )}} </td>
-                                    <td> {{ $masyarakat->address }} </td>
-                                    <td> {{ $masyarakat->email }} </td>
-                                    <td> {{ $masyarakat->phone }} </td>
-                                    <td><form action="{{route('user-delete', $masyarakat->id)}}" method="POST">
-                                        <a button type="button" href="{{route('user-edit', $masyarakat->id)}}" class="btn btn-warning">Edit</a>
+                                    <td> {{ $user->nik }} </td>
+                                    <td> {{ $user->name }} </td>
+                                    <td> {{ $user->email }} </td>
+                                    <td> {{ $user->created_at->format('d M Y H:i') }} </td>
+                                    <td><form action="{{route('petugas-delete', $user->id)}}" method="POST">
+                                        <a button type="button" href="{{route('petugas-edit', $user->id)}}" class="btn btn-warning">Edit</a>
                                             @csrf
                                             @method('DELETE')
                                             <input type="submit" value="delete" class="btn btn-danger">
@@ -73,8 +69,7 @@
         ],
         "columnDefs": [
             { width: 200, targets: 1 },
-            { width: 250, targets: 2 },
-            { width: 200, targets: 4 }
+            { width: 200, targets: 2 }
             ],
             "fixedColumns": true,
         "language": {

@@ -73,13 +73,13 @@
                           </div>
                         </div>
                     </div>
-                    {{-- <div class="row">
+                    <div class="row">
                         <div class="col-md-12">
                             <label for="formFile" class="form-label">Photo</label>
                             <input type="file" name="photo" class="form-control @error('photo') is-invalid @enderror" value="{{ old('photo', $user->photo??'') }}">
                                     @error('photo') <div class="invalid-feedback">{{ $message }}</div> @enderror
                           </div>
-                        </div> --}}
+                        </div>
                     </div>
 
                     <div class="row">
